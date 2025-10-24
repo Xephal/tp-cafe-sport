@@ -60,19 +60,21 @@ tp-cafe-sport/
 
 ## 3. Installation
 
-### Étape 1 : Créer un environnement virtuel
 
-```bash
+Windows
+```
 python -m venv .venv
-source .venv/bin/activate  # macOS / Linux
-# ou
-.venv\Scripts\activate      # Windows
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python -m src.main
 ```
 
-### Étape 2 : Installer les dépendances
-
-```bash
-pip install -r requirements.txt
+MacOS / Linux
+```
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -r requirements.txt
+python3 -m src.main
 ```
 
 ---
