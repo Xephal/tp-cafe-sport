@@ -66,7 +66,6 @@ Windows
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
-python -m src.main
 ```
 
 MacOS / Linux
@@ -74,7 +73,6 @@ MacOS / Linux
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install -r requirements.txt
-python3 -m src.main
 ```
 
 ---
@@ -85,8 +83,14 @@ python3 -m src.main
 
 Tous les modules sont testés avec **pytest** :
 
+Windows
 ```bash
-pytest -q
+.\.venv\Scripts\python -m pytest -q
+```
+
+MacOS / Linux
+```bash
+.venv/bin/python -m pytest -q
 ```
 
 Résultat attendu :
@@ -97,8 +101,14 @@ Résultat attendu :
 
 ### Exécuter le pipeline complet
 
+Windows
 ```bash
-python -m src.main
+.\.venv\Scripts\python -m src.main
+```
+
+MacOS / Linux
+```bash
+.venv/bin/python -m src.main
 ```
 
 Résultats générés dans `outputs/` :
