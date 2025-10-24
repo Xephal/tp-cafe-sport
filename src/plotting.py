@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from pathlib import Path
+from mpl_toolkits.mplot3d import Axes3D
 
 
 def plot_univariate_regression(df_sport: pd.DataFrame, activite: str, slope: float, intercept: float, out_path: Path):
@@ -23,6 +24,37 @@ def plot_univariate_regression(df_sport: pd.DataFrame, activite: str, slope: flo
     plt.title(f"{activite} : calories vs durée")
     out_path.parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(out_path, dpi=160, bbox_inches="tight")
+    plt.close()
+
+
+def plot_multivariate_regression(df, activite, a, b, c, output_path):
+    """Draw a 3D scatter of (duree_min, poids_kg, calories) and the fitted plane.
+
+    Saves PNG to output_path.
+    """
+    subset = df[df["activite"] == activite]
+    if subset.empty:
+        return
+
+    X, Y = np.meshgrid(
+        np.linspace(subset["duree_min"].min(), subset["duree_min"].max(), 30),
+        np.linspace(subset["poids_kg"].min(), subset["poids_kg"].max(), 30)
+    )
+    Z = a * X + b * Y + c
+
+    output_path = Path(output_path)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    fig = plt.figure(figsize=(8, 6))
+    ax = fig.add_subplot(111, projection="3d")
+    ax.scatter(subset["duree_min"], subset["poids_kg"], subset["calories"], color="blue", alpha=0.6)
+    ax.plot_surface(X, Y, Z, color="red", alpha=0.3)
+    ax.set_xlabel("Durée (min)")
+    ax.set_ylabel("Poids (kg)")
+    ax.set_zlabel("Calories")
+    ax.set_title(f"Régression multivariée - {activite}")
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=160, bbox_inches="tight")
     plt.close()
 
 
